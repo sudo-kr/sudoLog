@@ -13,3 +13,7 @@
 - <doc:ConcurrencyCode>
 - <doc:Sendable>
 - <doc:TaskLocal>
+
+### Concepts
+
+- <doc:Higher-Order-Function>

@@ -13,3 +13,6 @@
 
 - <doc:Sort>
 
+### ETC
+
+- <doc:JPG,-PNG,-WebP>
