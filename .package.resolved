@@ -1,6 +1,15 @@
 {
-  "originHash" : "022a74d38b2e14c64ded4649e13f4f0a814cd8c64ae819b1846c2260e19a8095",
+  "originHash" : "59c82e5b698b3b651e9b5fe2c47bf91596b3d58ba66e40cd24c185720161cef1",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "7be73f6c2b5cd90e40798b06ebd5da8f9f79cf88",
+        "version" : "5.11.0"
+      }
+    },
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",

@@ -21,6 +21,7 @@ let target = Target.target(
         .package(product: "SnapKit"),
         .package(product: "ComposableArchitecture"),
         .package(product: "Testing"),
+        .package(product: "Alamofire")
     ],
     settings: .settings(
         base: [
@@ -45,6 +46,10 @@ let project = Project(
     name: projectName,
     organizationName: "Page",
     packages: [
+        .remote(
+            url: "https://github.com/Alamofire/Alamofire.git",
+            requirement: .upToNextMajor(from: "5.11.0")
+        ),
         .remote(
             url: "https://github.com/onevcat/Kingfisher.git",
             requirement: .upToNextMajor(from: "8.6.0")
