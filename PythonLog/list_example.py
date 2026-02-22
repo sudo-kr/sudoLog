@@ -38,8 +38,15 @@ def example_list_remove_back():
     
     print(f"Remained: {remained}, Last 4: {last_four}, After Del: {arr}")
 
+def example_list_comprehension():
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+    squared = [x**2 for x in numbers]
+    even_squared = [x**2 for x in numbers if x % 2 == 0]
+    print(f"Squared: {squared}, Even Squared: {even_squared}")
+
 if __name__ == "__main__":
     example_slicing_basic()
     example_negative_slicing()
     example_step_slicing()
     example_list_remove_back()
+    example_list_comprehension()
