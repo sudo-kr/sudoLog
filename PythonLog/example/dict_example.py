@@ -8,7 +8,7 @@ def basic_operations():
     user["level"] = 11
     
     if "gold" in user:
-        del user["gold"]
+        user.pop("gold")
         
     print(f"Basic: {user}")
 
