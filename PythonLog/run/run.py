@@ -1,34 +1,25 @@
-from collections import deque
 import sys
+import math
 
-def solution(): 
-    size = sys.stdin.readline().split()
+def solution():
+    red = 0 
+    green = 1  
+    blue = 2
 
-    n = int(size[0])
-    m = int(size[1])
-    maze = [[0 if char == '1' else -1 for char in sys.stdin.readline().strip()] for _ in range(n)]
-    is_visited = [[False for _ in range(m)] for _ in range(n)]
-    result = 0 
-    dir = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    n = int(sys.stdin.readline())
+    costs = [ [int(x) for x in sys.stdin.readline().split()] for _ in range(n)]
+    dp = [ [math.inf for _ in range(n)] for _ in range(n)]
+    candidates = [[1, 2], [0, 2], [0, 1]]
 
-    def extract(): 
-        queue = deque()
-        queue.append((0, 0))
-        is_visited[0][0] = True
+    for i in range(3):
+        dp[0][i] = costs[0][i]
 
-        while queue: 
-            current = queue.popleft()
+    for i in range(1, n):
+        for j in range(3):
+            cost = costs[i][j]
+            for k in candidates[j]:
+                dp[i][j] = min(dp[i-1][k] + cost, dp[i][j])
 
-            for i in range(4):
-                nx = current[0] + dir[i][0]
-                ny = current[1] + dir[i][1]
-                if nx >= 0 and ny >= 0 and nx < n and ny < m and not is_visited[nx][ny] and maze[nx][ny] == 0: 
-                    is_visited[nx][ny] = True
-                    queue.append((nx, ny))
-                    maze[nx][ny] = maze[current[0]][current[1]] + 1
+    print(min(dp[n-1][0], dp[n-1][1], dp[n-1][2]))
 
-    extract()
-    print(maze[n-1][m-1] + 1)
-
-
-solution()
+solution() 
