@@ -1,25 +1,46 @@
-import sys
-import math
+import sys 
+from collections import deque
 
 def solution():
-    red = 0 
-    green = 1  
-    blue = 2
+    size_input = sys.stdin.readline().split()
+    row_size = int(size_input[1])
+    col_size = int(size_input[0])
+    warehouse = [ [ int(x) for x in sys.stdin.readline().split() ] for _ in range(row_size) ]
+    
+    def time_goes() -> int: 
+        queue = deque() 
+        result = 0 
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 
-    n = int(sys.stdin.readline())
-    costs = [ [int(x) for x in sys.stdin.readline().split()] for _ in range(n)]
-    dp = [ [math.inf for _ in range(n)] for _ in range(n)]
-    candidates = [[1, 2], [0, 2], [0, 1]]
+        for i in range(0, row_size):
+            for j in range(0, col_size):
+                if warehouse[i][j] == 1: 
+                    queue.append((i, j, 1))
 
-    for i in range(3):
-        dp[0][i] = costs[0][i]
+        
+        while queue:
+            cur = queue.popleft()
 
-    for i in range(1, n):
-        for j in range(3):
-            cost = costs[i][j]
-            for k in candidates[j]:
-                dp[i][j] = min(dp[i-1][k] + cost, dp[i][j])
+            for i in range(0, 4):
+                nr = cur[0] + directions[i][0]
+                nc = cur[1] + directions[i][1]
 
-    print(min(dp[n-1][0], dp[n-1][1], dp[n-1][2]))
+                if nr >= 0 and nr < row_size and nc >= 0 and nc < col_size and warehouse[nr][nc] == 0:
+                    warehouse[nr][nc] = cur[2] + 1 
+                    queue.append((nr, nc, cur[2] + 1))
 
-solution() 
+
+        for i in range(0, row_size):
+            for j in range(0, col_size):
+                if warehouse[i][j] == 0:
+                    return -1
+                else: 
+                    result = max(result, warehouse[i][j] - 1)
+
+        return result
+
+    print(time_goes())
+
+
+
+solution()

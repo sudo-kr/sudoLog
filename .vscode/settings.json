@@ -1,16 +1,67 @@
 {
-  "editor.quickSuggestions": {
-    "other": "off",
-    "comments": "off",
-    "strings": "off"
-  },
-  "editor.suggestOnTriggerCharacters": false,
-  "editor.parameterHints.enabled": false,
-  "editor.wordBasedSuggestions": "off",
-  "editor.acceptSuggestionOnEnter": "off",
-  "editor.inlineSuggest.enabled": false,
-  "github.copilot.editor.enableAutoCompletions": false,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
-  "python.terminal.clearBeforeRunning": true
+  "[python]": {
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.parameterHints.enabled": false,
+    "editor.wordBasedSuggestions": "off",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.inlineSuggest.enabled": false,
+    "editor.semanticHighlighting.enabled": false
+  },
+  "github.copilot.editor.enableAutoCompletions": false,
+  "python.terminal.clearBeforeRunning": true,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "keyword.control.import.python",
+          "keyword.control.flow.python",
+          "keyword.control.conditional.python",
+          "keyword.control.loop.python",
+          "keyword.control.exception.python",
+          "keyword.control.python",
+          "keyword.operator.logical.python",
+          "keyword.operator.arithmetic.python",
+          "keyword.operator.comparison.python",
+          "keyword.operator.bitwise.python",
+          "keyword.operator.assignment.python",
+          "keyword.operator.augmented-assignment.python",
+          "storage.type.function.python",
+          "storage.type.class.python",
+          "entity.name.function.python",
+          "entity.name.type.class.python",
+          "entity.name.function.decorator.python",
+          "variable.language.special.self.python",
+          "variable.language.special.cls.python",
+          "variable.parameter.python",
+          "constant.language.python",
+          "constant.numeric.integer.decimal.python",
+          "constant.numeric.float.python",
+          "constant.numeric.complex.python",
+          "constant.numeric.hex.python",
+          "constant.numeric.octal.python",
+          "constant.numeric.binary.python",
+          "string.quoted.single.python",
+          "string.quoted.double.python",
+          "string.quoted.triple.single.python",
+          "string.quoted.triple.double.python",
+          "comment.line.number-sign.python",
+          "support.function.builtin.python",
+          "support.type.python",
+          "support.type.exception.python",
+          "meta.function-call.generic.python"
+        ],
+        "settings": {
+          "foreground": "#D4D4D4",
+          "fontStyle": ""
+        }
+      }
+    ]
+  }
 }

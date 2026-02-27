@@ -20,3 +20,18 @@ math.inf
 # 숫자 리스트는 map(str, ...)으로 변환 필요
 "\n".join(map(str, [1, 2, 3]))  # "1\n2\n3"
 ```
+
+- 파이썬 `nonlocal` 키워드.
+
+```python
+# nonlocal: 중첩 함수에서 바깥 함수의 변수를 재할당할 때 사용
+def outer():
+    count = 0
+
+    def inner():
+        nonlocal count  # 변수명만 선언 가능
+        count += 1      # 바깥 count를 직접 수정
+
+    inner()
+    print(count)  # 1
+```
