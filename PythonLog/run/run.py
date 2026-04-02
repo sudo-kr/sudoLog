@@ -1,41 +1,37 @@
 import sys
+import math
+from collections import deque
 
 def solution():
-    n = int(sys.stdin.readline())
-    star = [ [' ' for _ in range(n * 2 - 1)] for _ in range(n)] 
+    (col_size, row_size) = map(int, sys.stdin.readline().split())
 
-    def divide_and_conquer(x_range, y_range):
-        length = len(y_range)   
-        next_length = int(length / 2)
-        next_x_length = next_length * 2 - 1
+    maze = [ list(map(int, sys.stdin.readline().strip())) for _ in range(row_size) ]
+    move = [ [math.inf for _ in range(col_size)] for _ in range(row_size)]
 
-        if length == 3: 
-            mark_star(x_range, y_range)
-        else: 
-            middle_y = int((y_range[0] + y_range[-1]) / 2) + 1
+    queue = deque() 
+    queue.append((0, 0, 0))
+    move[0][0] = 0
+    directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
-            left_x_range = range(x_range[0], x_range[0] + next_x_length)
-            right_x_range = range(x_range[0] + next_x_length + 1, x_range[-1] + 1)
+    while queue: 
+        (cur_x, cur_y, break_count) = queue.popleft()
 
-            middle_x_range_start = int((left_x_range[0] + left_x_range[-1]) / 2) + 1
-            middle_x_range_end = int((right_x_range[0] + right_x_range[-1]) / 2) + 1
-            middle_x_range = range(middle_x_range_start, middle_x_range_end - 1)
+        if break_count > move[cur_y][cur_x]: 
+            continue
 
-            divide_and_conquer(middle_x_range, range(y_range[0], y_range[0] + next_length))
-            divide_and_conquer(left_x_range, range(middle_y, middle_y + next_length))
-            divide_and_conquer(right_x_range, range(middle_y, middle_y + next_length))
-    
-    def mark_star(x_range, y_range): 
-        star[y_range[0]][x_range[2]] = '*'
+        for d in directions: 
+            nx = cur_x + d[0]
+            ny = cur_y + d[1]
+            nc = break_count
 
-        star[y_range[1]][x_range[1]] = '*'
-        star[y_range[1]][x_range[3]] = '*'
+            if nx >= 0 and nx < col_size and ny >= 0 and ny < row_size: 
+                if maze[ny][nx] == 1: 
+                    nc += 1
+                
+                if nc < move[ny][nx]: 
+                    queue.append((nx, ny, nc))
+                    move[ny][nx] = nc
 
-        for x in x_range:
-            star[y_range[2]][x] = '*'
+    print(move[row_size-1][col_size-1])
 
-    divide_and_conquer(range(n * 2 - 1), range(n))
-    print('\n'.join(''.join(row) for row in star))
-
-   
 solution()
