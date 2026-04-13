@@ -1,47 +1,46 @@
 import sys
+import math
+from collections import deque
 
 def solution():
-    bounds = list(map(int,sys.stdin.readline().split()))
-    min_r = bounds[0]
-    min_c = bounds[1]
-    max_r = bounds[2] + 1
-    max_c = bounds[3] + 1
-    max_length = 0 
-    result = [[]]
+    building_count = int(sys.stdin.readline())
+    time = [0]
+    end_time = [0 for _ in range(building_count + 1)] 
+    indegree = dict() 
+    outdegree = dict()
 
-    def find_value(r, c) -> int: 
-        max_coordinate = max(abs(r), abs(c))
-        min_coordinate = max_coordinate * -1
-        length = max_coordinate * 2 + 1
-        base = max_coordinate * 2 + 1
-        start_value = base * base
+    for num in range(1, building_count + 1):
+        indegree[num] = 0
+        outdegree[num] = []
 
-        if r == max_coordinate and c == max_coordinate:
-            return start_value
-        elif r == max_coordinate: 
-            diff = max_coordinate - c
-            return start_value - diff 
-        elif c == min_coordinate: 
-            value = start_value - length + 1
-            diff = max_coordinate - r
-            return value - diff 
-        elif r == min_coordinate:
-            value = start_value - (length * 2) + 2
-            diff = abs(min_coordinate - c)
-            return value - diff 
-        else:
-            value = start_value - (length * 3) + 3 
-            diff = abs(r - min_coordinate)
-            return value - diff
+    for num in range(1, building_count + 1):
+        infos = list(map(int, sys.stdin.readline().split()))
 
-    for (i, r) in enumerate(range(min_r, max_r)):
-        for (j, c) in enumerate(range(min_c, max_c)):
-            value = find_value(r, c)
-            result[i].append(value)
-            max_length = max(max_length, len(str(value)))
-        result.append([])
+        for i, info in enumerate(infos): 
+            if i == 0: 
+                time.append(info)
+            elif info != -1: 
+                indegree[num] += 1 
+                outdegree[info].append(num)
 
-    result.pop()
-    print('\n'.join(' '.join(f"{v:>{max_length}}" for v in row) for row in result))
+    queue = deque()
+
+    for num in range(1, building_count + 1): 
+        if indegree[num] == 0:
+            queue.append(num)
+            end_time[num] = time[num] 
+
+    while queue: 
+        cur = queue.popleft()
+
+        for out in outdegree[cur]:
+            indegree[out] -= 1
+            end_time[out] = max(end_time[cur] + time[out], end_time[out])
+
+            if indegree[out] == 0:
+                queue.append(out)
+
+    end_time = end_time[1:]
+    print("\n".join(map(str, end_time)))
 
 solution()
