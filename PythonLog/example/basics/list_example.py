@@ -34,6 +34,8 @@ def example_list_remove_back():
     last_four = arr[-4:]
     
     # 3. 원본 리스트에서 뒤에서 4개 삭제
+    # 리스트 슬라이싱(arr[-4:])은 O(N) 사용 
+    # del은 O(1)
     del arr[-4:]
     
     print(f"Remained: {remained}, Last 4: {last_four}, After Del: {arr}")
